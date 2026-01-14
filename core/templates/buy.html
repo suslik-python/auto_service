@@ -1,0 +1,40 @@
+<h1>Покупка машины</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <select name="company">
+        {% for c in companies %}
+            <option value="{{ c }}">{{ c }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="model">
+        {% for m in models %}
+            <option value="{{ m }}">{{ m }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="text" name="color" placeholder="Цвет">
+    <input type="number" name="price" placeholder="Цена">
+    <input type="number" name="mileage" placeholder="Пробег">
+
+    <button type="submit">Купить</button>
+</form>
+
+<hr>
+
+<h2>Купленные машины</h2>
+
+{% for car in bought_cars %}
+    <p>
+        {{ car.company }} {{ car.model }} —
+        {{ car.buy_price }}$ |
+        {{ car.mileage }} км |
+        {{ car.buy_date }}
+    </p>
+{% empty %}
+    <p>Пока покупок нет</p>
+{% endfor %}
+
+<a href="{% url 'index' %}">На главную</a>

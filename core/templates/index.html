@@ -1,0 +1,38 @@
+<h1>Автосалон</h1>
+
+<form method="get">
+    Цена от: <input type="number" name="min_price">
+    до: <input type="number" name="max_price">
+
+    <select name="company">
+        <option value="">Компания</option>
+        {% for c in companies %}
+            <option value="{{ c }}">{{ c }}</option>
+        {% endfor %}
+    </select>
+
+    <select name="model">
+        <option value="">Модель</option>
+        {% for m in models %}
+            <option value="{{ m }}">{{ m }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="text" name="search" placeholder="Поиск">
+    <button type="submit">Фильтр</button>
+</form>
+
+<hr>
+
+{% for car in cars %}
+    <h3>{{ car.company }} {{ car.model }}</h3>
+    <img src="{{ car.image }}" width="250">
+    <p>Цена: {{ car.price }}$</p>
+    <p>Пробег: {{ car.mileage }} км</p>
+    <p>Цвет: {{ car.color }}</p>
+    <hr>
+{% empty %}
+    <p>Машин нет</p>
+{% endfor %}
+
+<a href="{% url 'buy' %}">Купить машину</a>
